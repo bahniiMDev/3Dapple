@@ -65,7 +65,6 @@ const Model = () => {
 	useGSAP(() => {
 		const trigObj = {
 			trigger: '#trigger',
-			markers: true,
 			start: 'center 80%',
 			end: 'center top',
 			toggleActions: 'play none none reverse',
