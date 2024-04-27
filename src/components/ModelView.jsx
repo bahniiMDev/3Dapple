@@ -21,7 +21,7 @@ const ModelView = ({
 			id={gsapType}
 			className={`w-full h-full absolute ${index === 2 && 'right-[-100%]'}`}
 		>
-			<ambientLight intensity={1} />
+			<ambientLight intensity={2} />
 			<PerspectiveCamera makeDefault position={[0, 0, 4]} />
 
 			<Lights />
@@ -42,12 +42,14 @@ const ModelView = ({
 				name={index === 1 ? 'small' : 'large'}
 				position={[0, 0, 0]}
 				rotation={[0, 0, 0]}
+				className='relative'
 			>
 				<Suspense fallback={<Loader loaderSize={loaderSize} />}>
 					<Iphone
 						item={item}
 						size={size}
-						rotation={[0.15, 0, 0]}
+						position={[0, 0.15, 0]}
+						rotation={[0, 0, 0]}
 						scale={index === 1 ? [16, 16, 16] : [18, 18, 18]}
 					/>
 				</Suspense>

@@ -49,18 +49,110 @@ const Model = () => {
 	}, [size])
 
 	useGSAP(() => {
-		gsap.to('#heading', { y: 0, opacity: 1 })
+		gsap.from('#anim2', {
+			scrollTrigger: {
+				trigger: '#anim2',
+				start: 'top 80%',
+				toggleActions: 'restart reset resume reverse',
+			},
+			opacity: 0,
+			y: '40px',
+			duration: 0.8,
+			ease: 'power2.inOut',
+		})
+	}, [])
+
+	useGSAP(() => {
+		const trigObj = {
+			trigger: '#trigger',
+			markers: true,
+			start: 'center 80%',
+			end: 'center top',
+			toggleActions: 'play none none reverse',
+		}
+		const tl = gsap.timeline({
+			scrollTrigger: trigObj,
+		})
+
+		tl.from(
+			'#bar',
+			{
+				yPercent: 100,
+				ease: 'back.out(2)',
+				opacity: 0,
+				duration: 0.5,
+			},
+			'<'
+		)
+		tl.from(
+			'#cont-1',
+			{
+				width: '56px',
+				ease: 'back.out(2)',
+				x: 35,
+				duration: 0.5,
+			},
+			'-=0.4'
+		)
+		tl.from(
+			'#cont-2',
+			{
+				width: '56px',
+				ease: 'back.out(2)',
+				duration: 0.5,
+				x: -35,
+			},
+			'<'
+		)
+		tl.from(
+			'#color',
+			{
+				opacity: 0,
+				ease: 'back.out(2)',
+				duration: 0.5,
+				scale: 0.5,
+				stagger: {
+					amount: 0.2,
+					from: 4,
+				},
+			},
+			'-=0.2'
+		)
+		tl.from(
+			'#siz1',
+			{
+				opacity: 0,
+				ease: 'back.out(2)',
+				duration: 0.5,
+				scale: 0.5,
+				stagger: 0.2,
+			},
+			'<'
+		)
+		tl.from(
+			'#title-model',
+			{
+				opacity: 0,
+				ease: 'back.out(2)',
+				duration: 0.5,
+				yPercent: 100,
+			},
+			'<'
+		)
 	}, [])
 
 	return (
 		<section className='common-padding'>
 			<div className='screen-max-width'>
-				<h1 id='heading' className='section-heading'>
+				<h1 id='anim2' className='section-heading'>
 					Take a closer look.
 				</h1>
 
 				<div className='flex flex-col items-center mt-5'>
-					<div className='w-full h-[60vh] md:h-[80vh] overflow-hidden relative'>
+					<div
+						id='trigger'
+						className='w-full h-[60vh] md:h-[80vh] overflow-hidden relative'
+					>
 						<ModelView
 							index={1}
 							groupRef={small}
@@ -97,25 +189,31 @@ const Model = () => {
 							<View.Port />
 						</Canvas>
 					</div>
+					<div className='flex-center flex-col sticky bottom-[30px]' id='bar'>
+						<p
+							id='title-model'
+							className='relative z-10 text-sm font-light text-center mb-5'
+						>
+							{model.title}
+						</p>
 
-					<div className='mx-auto w-full'>
-						<p className='text-sm font-light text-center mb-5'>{model.title}</p>
-
-						<div className='flex-center'>
-							<ul className='color-container'>
+						<div id='color-cont' className='flex-center relative rounded-full'>
+							<ul id='cont-1' className='color-container  relative'>
 								{models.map((item, i) => (
 									<li
+										id='color'
 										key={i}
-										className='w-6 h-6 rounded-full mx-2 cursor-pointer'
+										className='h-[24px] aspect-square rounded-full cursor-pointer'
 										style={{ backgroundColor: item.color[0] }}
 										onClick={() => setModel(item)}
 									/>
 								))}
 							</ul>
 
-							<button className='size-btn-container'>
+							<button id='cont-2' className='size-btn-container'>
 								{sizes.map(({ label, value }) => (
 									<span
+										id='siz1'
 										key={label}
 										className='size-btn'
 										style={{

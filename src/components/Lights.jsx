@@ -67,11 +67,11 @@ const Lights = () => {
 				color={'#ffffff'}
 			/>
 			<spotLight
-				position={[-0.15, 0.8, 0.9]}
+				position={[-0.3, 1, 0.9]}
 				angle={2}
-				penumbra={0}
-				decay={5}
-				intensity={Math.PI * 0.5}
+				penumbra={1}
+				decay={20}
+				intensity={Math.PI * 0.1}
 				color={'#ffffff'}
 			/>
 			<spotLight

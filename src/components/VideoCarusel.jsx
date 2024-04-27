@@ -12,41 +12,34 @@ const VideoCarusel = () => {
 		isEnd: false,
 		startPlay: false,
 		videoId: 0,
-		isLoadVideo: false,
 		isPlaing: false,
 		isLastVideo: false,
 	})
 
-	const { isEnd, startPlay, isLastVideo, videoId, isLoadVideo, isPlaing } =
-		video
+	const { isEnd, startPlay, isLastVideo, videoId, isPlaing } = video
 
 	const [loadData, setLoadData] = useState([])
 
-	useEffect(() => {
-		if (loadData.length > 3) {
-			if (!isPlaing) {
-				videoRef.current[videoId].pause()
-			} else {
-				startPlay && videoRef.current[videoId].play()
-			}
-		}
-	}, [startPlay, isPlaing, loadData])
-
-	useEffect(() => {
-		if (loadData.length > 3) {
-			setTimeout(() => {
-				if (!isPlaing) {
-					videoRef.current[videoId].pause()
-				} else {
-					startPlay && videoRef.current[videoId].play()
-				}
-			}, 1000)
-		}
-	}, [videoId])
-
-	const handleLoadedData = (e, i) => {
-		setLoadData(prev => [...prev, e])
-	}
+	useGSAP(() => {
+		gsap.to('#slider', {
+			transform: ` translateX(${-100 * videoId}%)`,
+			duration: 1,
+			ease: 'power4.inOut',
+		})
+		gsap.to('#video', {
+			scrollTrigger: {
+				trigger: '#video',
+				toggleActions: 'restart none none none',
+			},
+			onComplete: () => {
+				setVideo(prev => ({
+					...prev,
+					startPlay: true,
+					isPlaing: true,
+				}))
+			},
+		})
+	}, [isEnd, videoId])
 
 	useEffect(() => {
 		let currentProgress = 0
@@ -91,28 +84,20 @@ const VideoCarusel = () => {
 			}
 		}
 	}, [videoId, startPlay])
-	//gsap.registerPlugin(scrollTrigger)
 
-	useGSAP(() => {
-		gsap.to('#slider', {
-			transform: ` translateX(${-100 * videoId}%)`,
-			duration: 1,
-			ease: 'power4.inOut',
-		})
-		gsap.to('#video', {
-			scrollTrigger: {
-				trigger: '#video',
-				toggleActions: 'restart none none none',
-			},
-			onComplete: () => {
-				setVideo(prev => ({
-					...prev,
-					startPlay: true,
-					isPlaing: true,
-				}))
-			},
-		})
-	}, [isEnd, videoId])
+	useEffect(() => {
+		if (loadData.length > 3) {
+			if (!isPlaing) {
+				videoRef.current[videoId].pause()
+			} else {
+				startPlay && videoRef.current[videoId].play()
+			}
+		}
+	}, [startPlay, isPlaing, loadData, videoId])
+
+	const handleLoadedData = (e, i) => {
+		setLoadData(prev => [...prev, e])
+	}
 
 	const handleProcess = (type, i) => {
 		switch (type) {
