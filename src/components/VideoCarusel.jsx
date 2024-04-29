@@ -155,9 +155,78 @@ const VideoCarousel = () => {
 
 	const handleLoadedMetaData = (i, e) => setLoadedData(pre => [...pre, e])
 
+	useGSAP(() => {
+		const trigObj = {
+			trigger: '#video',
+			start: 'center 80%',
+			end: 'center 0%',
+			toggleActions: 'restart none resume reverse',
+		}
+		const tl = gsap.timeline({
+			scrollTrigger: trigObj,
+		})
+
+		tl.from(
+			'#bar-video',
+			{
+				yPercent: 100,
+				ease: 'back.out(2)',
+				opacity: 0,
+				duration: 0.5,
+			},
+			'<'
+		)
+		tl.from(
+			'#cont-1-video',
+			{
+				scaleX: 0,
+				opacity: 0,
+				ease: 'back.out(2)',
+				x: 35,
+				duration: 0.5,
+			},
+			'-=0.4'
+		)
+		tl.from(
+			'#cont-2-video',
+			{
+				width: '56px',
+				ease: 'back.out(2)',
+				duration: 0.5,
+				x: -35,
+			},
+			'<'
+		)
+		tl.from(
+			'#color-video',
+			{
+				opacity: 0,
+				scale: 0,
+				ease: 'back.out(2)',
+				duration: 0.5,
+				stagger: {
+					amount: 0.2,
+					from: 'end',
+				},
+			},
+			'-=0.2'
+		)
+		tl.from(
+			'#size1-video',
+			{
+				opacity: 0,
+				ease: 'back.out(2)',
+				duration: 0.5,
+				scale: 0.5,
+				stagger: 0.2,
+			},
+			'<'
+		)
+	}, [])
+
 	return (
 		<>
-			<div className='flex items-center'>
+			<div className='flex items-center overflow-hidden rounded-3xl'>
 				{hightlightsSlides.map((list, i) => (
 					<div key={list.id} id='slider' className='sm:pr-20 pr-10'>
 						<div className='video-carousel_container'>
@@ -165,7 +234,7 @@ const VideoCarousel = () => {
 								<video
 									id='video'
 									playsInline={true}
-									className={`${
+									className={`max-w-[100%] ${
 										list.id === 2 && 'translate-x-44'
 									} ${i === 0 || i === 2 ? 'object-cover' : null} pointer-events-none w-full h-full	`}
 									preload='auto'
@@ -195,37 +264,51 @@ const VideoCarousel = () => {
 				))}
 			</div>
 
-			<div className='relative flex-center mt-10'>
-				<div className='flex-center py-5 px-7 bg-gray-300 backdrop-blur rounded-full'>
-					{videoRef.current.map((_, i) => (
-						<span
-							key={i}
-							className='mx-2 w-3 h-3 bg-gray-200 rounded-full relative cursor-pointer'
-							ref={el => (videoDivRef.current[i] = el)}
-						>
-							<span
-								className='absolute h-full w-full rounded-full min-w-3'
-								ref={el => (videoSpanRef.current[i] = el)}
-							/>
-						</span>
-					))}
-				</div>
-
-				<button
-					onClick={
-						isLastVideo
-							? () => handleProcess('video-reset')
-							: !isPlaying
-								? () => handleProcess('play')
-								: () => handleProcess('pause')
-					}
-					className='control-btn'
+			<div
+				id='bar-video'
+				className='flex-center flex-col sticky bottom-[30px] mt-10'
+			>
+				<div
+					id='color-cont-video'
+					className='flex-center relative rounded-full'
 				>
-					<img
-						src={isLastVideo ? replayImg : !isPlaying ? playImg : pauseImg}
-						alt={isLastVideo ? 'replay' : !isPlaying ? 'play' : 'pause'}
-					/>
-				</button>
+					<div
+						id='cont-1-video'
+						className='flex-center py-5 px-7 bg-gray-300 backdrop-blur rounded-full'
+					>
+						{videoRef.current.map((_, i) => (
+							<span
+								key={i}
+								id='color-video'
+								className='mx-2 min-w-3 h-3 bg-gray-200 rounded-full relative cursor-pointer'
+								ref={el => (videoDivRef.current[i] = el)}
+							>
+								<span
+									className='absolute h-full w-full rounded-full min-w-3'
+									ref={el => (videoSpanRef.current[i] = el)}
+								/>
+							</span>
+						))}
+					</div>
+
+					<button
+						id='cont-2-video'
+						onClick={
+							isLastVideo
+								? () => handleProcess('video-reset')
+								: !isPlaying
+									? () => handleProcess('play')
+									: () => handleProcess('pause')
+						}
+						className='control-btn'
+					>
+						<img
+							id='size1-video'
+							src={isLastVideo ? replayImg : !isPlaying ? playImg : pauseImg}
+							alt={isLastVideo ? 'replay' : !isPlaying ? 'play' : 'pause'}
+						/>
+					</button>
+				</div>
 			</div>
 		</>
 	)

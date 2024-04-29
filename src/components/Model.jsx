@@ -142,7 +142,7 @@ const Model = () => {
 
 	return (
 		<section className='common-padding'>
-			<div className='screen-max-width'>
+			<div className='container'>
 				<h1 id='anim2' className='section-heading'>
 					Take a closer look.
 				</h1>
@@ -175,8 +175,8 @@ const Model = () => {
 
 						<Canvas
 							style={{
-								width: '100vw',
-								height: '100vh',
+								width: '100%',
+								height: '100%',
 								pointerEvents: 'none',
 								position: 'fixed',
 								top: 0,

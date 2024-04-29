@@ -33,6 +33,7 @@ canvas {
 	margin-inline-end: auto;
 	position: relative;
 	max-width: 1120px;
+	padding: 0px 2vw;
 }
 
 
@@ -43,7 +44,7 @@ canvas {
 	}
 
 	.nav-height {
-		@apply h-[calc(100vh-60px)]
+		@apply h-[calc(100dvh-60px)]
 	}
 
 	.btn {
@@ -73,15 +74,23 @@ canvas {
 	/*@media (width < 600px) */
 
 	.feature-text {
-		@apply text-gray max-w-md text-lg md:text-xl font-semibold opacity-0 translate-y-[100px]
+		@apply text-gray max-w-md text-lg md:text-xl font-semibold
 	}
 
 	.feature-text-container {
 		@apply w-full flex-center flex-col md:flex-row mt-10 md:mt-16 gap-5
 	}
 
+	.feature-text-container2 {
+		@apply w-full flex-center flex-col mt-10 md:mt-16 gap-5
+	}
+
 	.feature-video {
-		@apply w-full h-full object-cover object-center scale-150 opacity-0
+		@apply w-[100%] h-full object-cover object-center
+	}
+
+	.feature-video2 {
+		@apply w-full h-[80%] object-cover object-center
 	}
 
 	.feature-video-container {
@@ -109,7 +118,7 @@ canvas {
 	}
 
 	.hiw-video {
-		@apply absolute w-[95%] h-[90%] rounded-[56px] overflow-hidden
+		@apply absolute w-[96%] top-[4%] h-[92%] overflow-hidden left-[2%] md:rounded-[50px] rounded-[20px]
 	}
 
 	.hiw-text-container {
@@ -121,7 +130,7 @@ canvas {
 	}
 
 	.hiw-bigtext {
-		@apply text-white text-3xl md:text-5xl font-normal md:font-semibold my-2
+		@apply text-white text-3xl md:text-4xl font-semibold my-1
 	}
 
 	.video-carousel_container {

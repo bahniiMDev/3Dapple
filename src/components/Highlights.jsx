@@ -8,7 +8,7 @@ import VideoCarusel from './VideoCarusel'
 gsap.registerPlugin(ScrollTrigger)
 const Highlights = () => {
 	useGSAP(() => {
-		document.querySelectorAll('#anim').forEach(item => {
+		document.querySelectorAll('#anim').forEach((item, index) => {
 			gsap.from(item, {
 				scrollTrigger: {
 					trigger: item,
@@ -18,15 +18,13 @@ const Highlights = () => {
 				opacity: 0,
 				y: '40px',
 				duration: 0.8,
+				delay: index * 0.1,
 				ease: 'power2.inOut',
 			})
 		})
 	}, [])
 	return (
-		<section
-			id='highlights'
-			className='w-screen h-full overflow-hidden bg-zinc common-padding'
-		>
+		<section id='highlights' className='w-screen h-full bg-zinc common-padding'>
 			<div className='container'>
 				<div className='w-full md:flex items-end justify-between mb-10'>
 					<h1 id='anim' className='md:mb-0 mb-12 section-heading'>

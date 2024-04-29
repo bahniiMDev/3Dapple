@@ -1,3 +1,5 @@
+import gsap from 'gsap'
+
 export const animate = (
 	tl,
 	rotationRef,
@@ -30,4 +32,24 @@ export const animate = (
 		},
 		'<'
 	)
+}
+
+export const useAnim = (
+	target,
+	animProps,
+	triggerProps,
+	dur = 0.8,
+	ease = 'power2.inOut'
+) => {
+	gsap.from(target, {
+		scrollTrigger: {
+			trigger: target,
+			start: 'top 80%',
+			toggleActions: 'restart none resume reverse',
+			...triggerProps,
+		},
+		...animProps,
+		duration: dur,
+		ease: ease,
+	})
 }
