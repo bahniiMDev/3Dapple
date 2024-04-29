@@ -19,11 +19,11 @@ const Footer = () => {
 					<p className=' text-xs text-gray'>
 						Copyright © 2024 Apple Inc. All rights reserved.
 					</p>
-					<div className='flex mt-[9px]'>
+					<div className='flex mt-[9px] flex-wrap'>
 						{footerLinks.map((item, i) => (
 							<a
 								href=''
-								className='flex text-[#ffffffcc] text-xs hover:underline'
+								className='flex break-words text-[#ffffffcc] text-xs hover:underline'
 								key={item}
 							>
 								{item}{' '}

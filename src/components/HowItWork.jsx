@@ -24,7 +24,7 @@ const HowItWork = () => {
 					yPercent: 20,
 				},
 				{
-					start: `top ${i === 2 && window.matchMedia('(width < 768px)').matches ? '0%' : '70%'}`,
+					start: 'top 80%',
 				},
 				0.4,
 				'linear'
@@ -32,7 +32,7 @@ const HowItWork = () => {
 		})
 	}, [])
 	return (
-		<div className='common-padding'>
+		<div className='common-padding overflow-hidden'>
 			<div className='container'>
 				<div id='chip' className='flex-center w-full my-20'>
 					<img src={chipImg} alt='chip' width={180} height={180} />
